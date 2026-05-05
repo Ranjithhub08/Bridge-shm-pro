@@ -20,12 +20,22 @@ interface LiveChartProps {
     data: SensorData[];
 }
 
-const CustomTooltip = ({ active, payload, label }: any) => {
+interface TooltipPayloadEntry {
+    name: string;
+    value: number;
+    color: string;
+}
+interface CustomTooltipProps {
+    active?: boolean;
+    payload?: TooltipPayloadEntry[];
+    label?: string;
+}
+const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
     if (active && payload && payload.length) {
         return (
             <div className="bg-neutral-900 border border-neutral-700 p-3 rounded-lg shadow-xl text-xs font-mono">
                 <p className="text-gray-400 mb-2 border-b border-gray-800 pb-1">{label}</p>
-                {payload.map((entry: any) => (
+                {payload.map((entry: TooltipPayloadEntry) => (
                     <div key={entry.name} className="flex items-center gap-2 mb-1" style={{ color: entry.color }}>
                         <div className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.color }} />
                         <span className="font-bold">{entry.name}:</span>
